@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header/Header";
+import ToDoList from "./components/ToDoList/ToDoList";
+import Footer from "./components/Footer/Footer";
+import AddToDo from "./components/AddToDo/AddToDo";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [todoForm, setTodoForm] = useState(false)
+  const [todo, setTodo] = useState([])
+
+  useEffect(() => {
+    if (localStorage.getItem('localTasks')){
+      const store = JSON.parse(localStorage.getItem('localTasks'));
+      setTodo(store)
+    }
+  },[])
+
+  const toggleTodo = () =>{
+    setTodoForm(true)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        <Header />
+        <main>
+          <button onClick={toggleTodo}>Create new task</button>
+          {todoForm && <AddToDo todo={todo} setTodo={setTodo} setTodoForm={setTodoForm} />}
+          <ToDoList todo={todo} setTodo={setTodo} />
+        </main>
+        <Footer />
+    </>
   );
 }
 
