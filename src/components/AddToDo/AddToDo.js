@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../store/todoSlice";
 
-const AddToDo = ({ todo, setTodo, setTodoForm }) => {
-    const [task, setTask] = useState({id: Date.now(), time: new Date().toLocaleString(), todoStatus: false})
+const AddToDo = ({ setTodoForm }) => {
+    const [task, setTask] = useState({
+        title: '',
+        description: '',
+    })
+
+    const dispatch = useDispatch();
 
     const handleTitle = (e) => {
         setTask({...task, title: e.target.value})
@@ -17,10 +24,10 @@ const AddToDo = ({ todo, setTodo, setTodoForm }) => {
 
     const createTask = (e) => {
         e.preventDefault()
-        setTodo([...todo, task])
-        localStorage.setItem('localTasks', JSON.stringify([...todo, task]))
-        setTask({...task, title: '', description: ''})
-        setTodoForm(false)
+        if(task.title && task.description){
+            dispatch(addTodo(task))
+            setTask({...task, title: '', description: ''})
+        }
     }
 
     return ( 
@@ -30,7 +37,7 @@ const AddToDo = ({ todo, setTodo, setTodoForm }) => {
                     <input onChange={handleTitle} value={task.title} type="text" className="form__task-title" />
                     <textarea onChange={handleDescription} value={task.description} type="text" className="form__task-description" />
                     <button type="submit">Create</button>
-                    <button type="reset" onClick={closeForm}>Cancel</button>
+                    <button type="reset"onClick={closeForm}>Cancel</button>
                 </form>
             </div>
         </section>
