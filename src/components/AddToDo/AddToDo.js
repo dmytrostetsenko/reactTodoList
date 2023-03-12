@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../../store/todoSlice";
+import './add-todo.css'
 
-const AddToDo = ({ setTodoForm }) => {
+const AddToDo = ({ setActive }) => {
     const [task, setTask] = useState({
         title: '',
         description: '',
     })
+
 
     const dispatch = useDispatch();
 
@@ -19,7 +21,8 @@ const AddToDo = ({ setTodoForm }) => {
     }
 
     const closeForm = () => {
-        setTodoForm(false)
+        setTask({...task, title: '', description: ''})
+        setActive(false)
     }
 
     const createTask = (e) => {
@@ -27,20 +30,19 @@ const AddToDo = ({ setTodoForm }) => {
         if(task.title && task.description){
             dispatch(addTodo(task))
             setTask({...task, title: '', description: ''})
+            setActive(false)
         }
     }
 
     return ( 
-        <section>
-            <div className="container">
-                <form onSubmit={createTask} className="form">
-                    <input onChange={handleTitle} value={task.title} type="text" className="form__task-title" />
-                    <textarea onChange={handleDescription} value={task.description} type="text" className="form__task-description" />
-                    <button type="submit">Create</button>
-                    <button type="reset"onClick={closeForm}>Cancel</button>
-                </form>
+        <form className="form" onSubmit={createTask}>
+            <input type="text" className="form__task-title" placeholder="Task name" onChange={handleTitle} value={task.title} />
+            <textarea rows='7' type="text" className="form__task-description" placeholder="Task description" onChange={handleDescription} value={task.description} />
+            <div className="form__buttons">
+                <button className="button form__button" type="submit">Create</button>
+                <button className="button form__button" type="reset" onClick={closeForm}>Cancel</button>
             </div>
-        </section>
+        </form>
      );
 }
  

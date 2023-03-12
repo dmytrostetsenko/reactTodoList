@@ -1,0 +1,22 @@
+.header{
+    text-align: center;
+    background-color: #242320;
+    position: relative;
+    padding: 7px;
+}
+.button.header__button{
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    position: absolute;
+    bottom: -50%;
+    left: 50%;
+    transform: translate(-50%, -35%);
+    font-size: 30px;
+    color: #FF8303;
+    border-radius: 50%;
+}
+.header__button:hover{
+    background-color: #1B1A17;
+}
+

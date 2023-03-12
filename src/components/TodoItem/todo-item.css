@@ -1,3 +1,42 @@
-.item--done{
-    background-color: gray;
+.item{
+    padding: 20px;
+    background-color: #242320;
+    border: 1px solid #FF8303;
+    transition: all .3s ease;
+    overflow-wrap: break-word;
+}
+.item__title{
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+.item__time{
+    text-align: right;
+}
+.item__buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.item__set-buttons{
+    display: flex;
+    gap: 15px;
+}
+.item--done .item__title,
+.item--done .item__description,
+.item--done .item__time{
+    text-decoration: line-through;
+}
+
+.item--done,
+.item--done .button:not(.delete-alarm__button){
+    background-color: #2d4d39;
+}
+
+.button.item__delete-button{
+    padding: 10px 15px;
+}
+.button.item__delete-button:hover{
+    background-color: #4a1d1d;
+}
+.button.item__done-button:hover{
+    background-color: #1c3023;
 }
